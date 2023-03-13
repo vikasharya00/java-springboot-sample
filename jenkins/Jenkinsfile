@@ -20,6 +20,15 @@ pipeline{
                 sh 'mvn test'
             }
         }
+        stage("scan base docker image"){
+            steps{
+                script {
+                    def output = sh(returnStdout: true, script: "grep 'FROM' Dockerfile | awk -F ' ' '{print \$3}'")
+                    sh "trivy image ${output}"
+                }
+            }
+        }
+
         stage("Build docker image"){
             steps{
                 script{
@@ -47,9 +56,11 @@ pipeline{
                 }
             }
         }
-        stage("sonarqube analysis"){
-            steps{
-                echo "yet to complete"
+        stage('build && SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
     }
