@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: samplemavenapp
-          image: vikasharya000/sample-maven-app:8
+          image: vikasharya000/sample-maven-app:9
           ports:
             - containerPort: 8080
   
