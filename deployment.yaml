@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    app: sample-java-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-java-app
+  template:
+    metadata:
+      name: demo-pod
+      labels:
+        app: sample-java-app
+    spec:
+      containers:
+        - name: samplemavenapp
+          image: vikasharya000/sample-maven-app:8
+          ports:
+            - containerPort: 8080
+  
