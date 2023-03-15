@@ -52,7 +52,7 @@ pipeline{
                 script{
                     kubeconfig(credentialsId: 'kubeconfig') {
                         def image=dockerImageName + ":${BUILD_NUMBER}"
-                        sh "helm install sample-app ./sample-chart/  --set image=${image}`"
+                        sh "helm install sample-app ./sample-chart/  --set image=${image}"
                     }
                 }
             }
