@@ -24,7 +24,7 @@ pipeline{
             steps{
                 script {
                     def output = sh(returnStdout: true, script: "grep 'FROM' Dockerfile | awk -F ' ' '{print \$3}'")
-                    sh "trivy image ${output}"
+                    sh "trivy image ${output} "
                 }
             }
         }
@@ -47,11 +47,11 @@ pipeline{
             }
 
         }
-        stage("deploy to kuberneted cluster"){
+        stage("deploy to kuberneted cluster using helm chart"){
             steps{
                 script{
                     kubeconfig(credentialsId: 'kubeconfig') {
-                        sh "kubectl apply -f service.yaml -f deployment.yaml"
+                        sh "helm install sample-app ./sample-chart/  --set image=dockerImage"
                     }
                 }
             }

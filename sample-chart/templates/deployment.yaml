@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: samplemavenapp
-          image: vikasharya000/sample-maven-app:9
+          image: {{.Values.image}}
           ports:
             - containerPort: 8080
   
