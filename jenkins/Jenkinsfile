@@ -51,7 +51,7 @@ pipeline{
             steps{
                 script{
                     kubeconfig(credentialsId: 'kubeconfig') {
-                        sh "helm install sample-app ./sample-chart/  --set image=dockerImage"
+                        sh "helm install sample-app ./sample-chart/  --set image=${dockerImage}`"
                     }
                 }
             }

@@ -1,1 +1,6 @@
-image: "vikasharya000/sample-maven-app:9"
+app:
+  image: "vikasharya000/sample-maven-app:9"
+  port: 8080
+  service:
+      port: 8080
+      nodePort: 30009

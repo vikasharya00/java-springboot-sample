@@ -7,6 +7,5 @@ spec:
   selector:
     app: sample-java-app
   ports:
-    - port: 8080
-      targetPort: 8080
-      nodePort: 30009
+    - port: {{.Values.app.service.port}}
+      nodePort: {{.Values.app.service.nodePort}}
