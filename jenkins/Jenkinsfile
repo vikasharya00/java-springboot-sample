@@ -55,7 +55,7 @@ pipeline{
                 script{
                     kubeconfig(credentialsId: 'kubeconfig') {
                         withFileParameter('newValues') {
-                            sh 'cp -f newValues ./sample-chart/values.yaml'
+                            sh 'cp -f $newValues ./sample-chart/values.yaml'
                             def image=dockerImageName + ":${BUILD_NUMBER}"
                             sh "helm install sample-app ./sample-chart/ "
                         }
