@@ -5,6 +5,9 @@ pipeline{
         registryCredentials="dockerhub-creds"
         dockerImageName="vikasharya000/sample-maven-app"
     }
+    parameters {
+        base64File 'newValues'
+    }
     tools{
         maven("maven-3.9")
     }
@@ -51,8 +54,11 @@ pipeline{
             steps{
                 script{
                     kubeconfig(credentialsId: 'kubeconfig') {
-                        def image=dockerImageName + ":${BUILD_NUMBER}"
-                        sh "helm install sample-app ./sample-chart/  --set image=${image}"
+                        withFileParameter('newValues') {
+                            sh 'cp -f newValues ./sample-chart/values.yaml'
+                            def image=dockerImageName + ":${BUILD_NUMBER}"
+                            sh "helm install sample-app ./sample-chart/ "
+                        }
                     }
                 }
             }
